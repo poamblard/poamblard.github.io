@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications — Pierre-Olivier Amblard</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --accent-color: #2b6cb0;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --text-muted: #718096;
+            --border-color: #e2e8f0;
+            --tag-bg: #edf2f7;
+            --tag-text: #4a5568;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border-left: 6px solid var(--primary-color);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        header .author-info {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        header .affiliation {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        header .date {
+            margin-top: 0.5rem;
+            display: inline-block;
+            background: var(--tag-bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--tag-text);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title span.count {
+            font-size: 0.9rem;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+        }
+
+        .pub-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pub-item {
+            background: var(--card-bg);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .pub-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.08);
+        }
+
+        .pub-num {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        .pub-authors {
+            font-weight: 500;
+            color: #1a202c;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0.25rem 0;
+        }
+
+        .pub-journal {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Liste des Publications</h1>
+        <div class="author-info">Pierre-Olivier Amblard</div>
+        <div class="affiliation">GIPSA-lab, Dept. Signal et Images, UMR 5216</div>
+        <div class="date">Mise à jour : Août 2026</div>
+    </header>
+
+    <div class="controls">
+        <div class="search-box">
+            <input type="text" id="searchInput" onkeyup="filterPublications()" placeholder="Rechercher par titre, auteur, revue, année...">
+        </div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="filterCategory('all', event)">Tous</button>
+            <button class="tab-btn" onclick="filterCategory('papers', event)">Articles de Revues</button>
+            <button class="tab-btn" onclick="filterCategory('conferences', event)">Conférences</button>
+            <button class="tab-btn" onclick="filterCategory('invited', event)">Conférences Invitées</button>
+            <button class="tab-btn" onclick="filterCategory('books', event)">Livres & Chapitres</button>
+            <button class="tab-btn" onclick="filterCategory('other', event)">Thèses & Écoles</button>
+        </div>
+    </div>
+
+    <!-- Articles de revues -->
+    <section id="papers" class="category-section">
+        <h2 class="section-title">Articles de revues (Papers) <span class="count">68</span></h2>
+        <ul class="pub-list">
+            <li class="pub-item">
+                <span class="pub-num">1.</span>
+                <span class="pub-authors">H. Jaquard, P. O. Amblard, S. Barthelmé, and N. Tremblay.</span>
+                <div class="pub-title">Random multi-type spanning forests for synchronization on sparse graphs.</div>
+                <div class="pub-journal">SIAM Math. of Data Science, 7(3), 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">2.</span>
+                <span class="pub-authors">R. Claveau, N. Gillet, P. O. Amblard, and C. C. Finlay.</span>
+                <div class="pub-title">Broadband a priori temporal cross-covariances for the geomagnetic inverse problem: application to the satellite era.</div>
+                <div class="pub-journal">Earth Planets and Space, 75:126, 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">3.</span>
+                <span class="pub-authors">C. Cros, P. O. Amblard, C. Prieur, and J. DaRocha.</span>
+                <div class="pub-title">Revisiting split covariance intersection: Correlated components and optimality.</div>
+                <div class="pub-journal">IEEE Trans. Auto. Contr., 70(7):4593-40607, 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">4.</span>
+                <span class="pub-authors">C. Cros, P.-O. Amblard, C. Prieur, and J.-F. Da Rocha.</span>
+                <div class="pub-title">Pseudorange Rigidity and Solvability of Co-operative GNSS Positioning.</div>
+                <div class="pub-journal">IEEE Transactions on Control of Network Systems, 12(1):1176-1187, Mar. 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">5.</span>
+                <span class="pub-authors">N. Gillet, F. Dall'Asta, P.-O. Amblard, R. Claveau, and J. Aubert.</span>
+                <div class="pub-title">Waves in Earth's core and geomagnetic field forecast.</div>
+                <div class="pub-journal">Physics of the Earth and Planetary Interiors, 357:107284, 2024.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">6.</span>
+                <span class="pub-authors">S. Barthelmé, P. O. Amblard, N. Tremblay, and K. Usevitch.</span>
+                <div class="pub-title">Gaussian process regression in the flat limit.</div>
+                <div class="pub-journal">The Annals of Statistics, 51(6):2471-2505, Dec 2023.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">7.</span>
+                <span class="pub-authors">C. Cros, P. Amblard, C. Prieur, and J. DaRocha.</span>
+                <div class="pub-title">Fusion of distance measurements between agents with unknown correlations.</div>
+                <div class="pub-journal">System Control Letters, 7:2143-2148, 2023.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">8.</span>
+                <span class="pub-authors">S. Barthelmé, N. Tremblay, K. Usevitch, and P. O. Amblard.</span>
+                <div class="pub-title">Determinantal point processes in the flat limit.</div>
+                <div class="pub-journal">Bernoulli, 29(2):957-983, 2023.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">9.</span>
+                <span class="pub-authors">N. Tremblay, S. Barthelmé, K. Usevitch, and P. O. Amblard.</span>
+                <div class="pub-title">Extended L-ensembles: a new representation for determinantal point processes.</div>
+                <div class="pub-journal">Annals of Applied Probability, 33(1):613-640, 2023.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">10.</span>
+                <span class="pub-authors">A. Komaty, A.-O. Boudraa, P. Flandrin, P.-O. Amblard, and J. Astolfi.</span>
+                <div class="pub-title">On the behavior of memd in presence of multivariate fractional gaussian noise.</div>
+                <div class="pub-journal">IEEE Trans. on Sig. Proc., 69:2676-2688, 2021.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">11.</span>
+                <span class="pub-authors">Y. Y. Pilavci, P. O. Amblard, S. Barthelmé, and N. Tremblay.</span>
+                <div class="pub-title">Graph tikhonov regularization and interpolation via random spanning forests.</div>
+                <div class="pub-journal">IEEE Trans. On Signal and Information Processing over Networks, 7:359-374, 2021. arXiv:2011.10450</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">12.</span>
+                <span class="pub-authors">J. F. Coeurjolly, A. Mazoyer, and P.-O. Amblard.</span>
+                <div class="pub-title">Monte carlo integration of non differentiable functions on [0, 1], i=1,...,d using a single determinantal point pattern defined on [0,1]^d.</div>
+                <div class="pub-journal">Electronic Journal of Statistics, 15(2):6228-6280, 2021.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">13.</span>
+                <span class="pub-authors">L. Bosse, J. Lilensten, N. Gilet, S. Rochat, A. Delboulbé, S. Curaba, A. Roux, Y. Magnard, M. Johnsen, U. Lovhaug, and P. O. Amblard et al.</span>
+                <div class="pub-title">On the nightglow polarisation for space weather exploration.</div>
+                <div class="pub-journal">J. Space Weather and Space Climate, 10:35, 2020.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">14.</span>
+                <span class="pub-authors">A. Mazoyer, J. F. Coeurjolly, and P.-O. Amblard.</span>
+                <div class="pub-title">Projections of determinantal point processes.</div>
+                <div class="pub-journal">Spatial Statistics, 38:100437, 2020.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">15.</span>
+                <span class="pub-authors">N. Tremblay, S. Barthelmé, and P. O. Amblard.</span>
+                <div class="pub-title">Determinantal point processes for coresets.</div>
+                <div class="pub-journal">JMLR 20, 1-70, 2019, arXiv:1803.08700</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">16.</span>
+                <span class="pub-authors">S. Barthelmé, P. O. Amblard, and N. Tremblay.</span>
+                <div class="pub-title">Asymptotic equivalence of fixed-size and varying-size determinantal point processes.</div>
+                <div class="pub-journal">Bernoulli, 25(4B):3555-3589, 2019.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">17.</span>
+                <span class="pub-authors">S. Chlaily, C. Ren, P. O. Amblard, O. J. J. Michel, P. Comon, and C. Jutten.</span>
+                <div class="pub-title">Information-estimation relationship in mismatched gaussian channels.</div>
+                <div class="pub-journal">IEEE Sig. Proc. Letters, 24(5):688692, 2017.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">18.</span>
+                <span class="pub-authors">A. Zebadua, P. O. Amblard, E. Moisan, and O. J. J. Michel.</span>
+                <div class="pub-title">Compressed and quantized correlation estimators.</div>
+                <div class="pub-journal">IEEE Transaction on Signal Processing, 65(1):56-68, 2017.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">19.</span>
+                <span class="pub-authors">P. O. Amblard.</span>
+                <div class="pub-title">A non-parametric efficient evaluation of partial directed coherence.</div>
+                <div class="pub-journal">Biol. Cyber., 109:203-214, 2015.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">20.</span>
+                <span class="pub-authors">J. Manton and P. O. Amblard.</span>
+                <div class="pub-title">A primer on reproducing kernel Hilbert spaces.</div>
+                <div class="pub-journal">Foundations and trends in signal processing, 8(1-2):1-126, 2015.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">21.</span>
+                <span class="pub-authors">Amblard, P. O. and Michel, O. J. J.</span>
+                <div class="pub-title">Causal conditioning and instantaneous coupling in causality graphs.</div>
+                <div class="pub-journal">Information Sciences, 264:279-290, 2014.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">22.</span>
+                <span class="pub-authors">Lilensten, J., Barthélémy, M., P. O. Amblard, et al.</span>
+                <div class="pub-title">The thermospheric auroral red line polarization: confirmation of detection and first quantitative analysis.</div>
+                <div class="pub-journal">Space Weather and Space Climate, 3:A01, 2013.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">23.</span>
+                <span class="pub-authors">Said, S., Amblard, P. O., and Manton, J.</span>
+                <div class="pub-title">Stationary random fields arising from second order partial differential equations on compact lie groups.</div>
+                <div class="pub-journal">IEEE Trans on Info. Theory, 59(6):3497-3513, 2013.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">24.</span>
+                <span class="pub-authors">Amblard, P. O. and Michel, O. J. J.</span>
+                <div class="pub-title">The relation between granger causality and directed information theory: A review.</div>
+                <div class="pub-journal">Entropy, 15(1):113-143, 2013.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">25.</span>
+                <span class="pub-authors">Coeurjolly, J. F., Amblard, P. O., and Achard, S.</span>
+                <div class="pub-title">Wavelet analysis of the multivariate fractional brownian motion.</div>
+                <div class="pub-journal">ESAIM-PS, 17:592-604, 2013.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">26.</span>
+                <span class="pub-authors">McDonnell, M., Li, F., Amblard, P. O., and Grant. A. J.</span>
+                <div class="pub-title">Optimal sensor selection for noisy binary detection in stochastic pooling networks.</div>
+                <div class="pub-journal">Phys. Rev. E, 88:022118, 2013.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">27.</span>
+                <span class="pub-authors">Amblard, P. O., Coeurjolly, J. F., Lavancier, F., and Philippe, A.</span>
+                <div class="pub-title">Basic properties of the multivariate fractional Brownian motion.</div>
+                <div class="pub-journal">Bulletin Société Mathématique de France, Séminaire et Congrès, 28:65-87, 2012.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">28.</span>
+                <span class="pub-authors">Amblard, P. O. and Michel, O. J. J.</span>
+                <div class="pub-title">On directed information theory and granger causality graphs.</div>
+                <div class="pub-journal">Journal of Computational Neuroscience, 30(1):7-16, 2011.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">29.</span>
+                <span class="pub-authors">Amblard, P. O. and Coeurjolly, J. F.</span>
+                <div class="pub-title">On the identification of the multivariate fractional Brownian motion.</div>
+                <div class="pub-journal">IEEE Trans. on Signal Processing, 59(11):5152-5168, 2011.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">30.</span>
+                <span class="pub-authors">Flandrin, P., Richard, C., Amblard, P. O., Borgnat, P., Honeine, P., Amoud, H., Ferrari, A., Xiao, J., Moghtaderi, A., and Ramirez-Cobo, P.</span>
+                <div class="pub-title">Stationnarité relative et approches connexes.</div>
+                <div class="pub-journal">Traitement du Signal, 28(6):691-716, 2011.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">31.</span>
+                <span class="pub-authors">McDonnell, M., Amblard, P.-O., and Stocks, N.</span>
+                <div class="pub-title">Bio-inspired communication: Performance limits for information transmission and compression in stochastic pooling networks with binary quantizing nodes.</div>
+                <div class="pub-journal">Journal of Computational and Theoretical Nanoscience, 7:1-8, 2010.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">32.</span>
+                <span class="pub-authors">McDonnell, M., Stocks, N., and Amblard, P. O.</span>
+                <div class="pub-title">Communication of uncoded sensor measurements through nanoscale binary-node stochastic pooling networks.</div>
+                <div class="pub-journal">Nano Communication Networks, 1:209-223, 2010.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">33.</span>
+                <span class="pub-authors">McDonnell, M., Amblard, P.-O., and Stocks, N.</span>
+                <div class="pub-title">Stochastic pooling networks.</div>
+                <div class="pub-journal">Journal of Statistical Mechanics: Theory and experiment, (2009):P01012, 2009.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">34.</span>
+                <span class="pub-authors">Zozor, S., Amblard, P.-O., and Duchêne, C.</span>
+                <div class="pub-title">Does the eye tremor provide the hyperacuity phenomenon?</div>
+                <div class="pub-journal">Journal of Statistical Mechanics: Theory and experiment, (2009):P01015, 2009.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">35.</span>
+                <span class="pub-authors">Decrouez, G., Amblard, P. O., Brossier, J. M., and Jones, O.</span>
+                <div class="pub-title">Galton-watson iterated function systems.</div>
+                <div class="pub-journal">J. Phys. A: Math. Theor., 42:095101, 2009.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">36.</span>
+                <span class="pub-authors">Kretzschmar, M., Dudok De Wit, T., Lilensten, J., Aboudarham, J., Amblard, P.-O., and Moussaoui, S.</span>
+                <div class="pub-title">Solar euv/fuv irradiance variations:analysis and observational strategy.</div>
+                <div class="pub-journal">Acta geophysica, 57:42-51, 2009.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">37.</span>
+                <span class="pub-authors">Dudok De Wit, T., Kretzschmar, M., Aboudarham, J., Amblard, P.-O., and Lilensten, J.</span>
+                <div class="pub-title">Which solar EUV proxies are best for reconstructing the solar EUV irradiance?</div>
+                <div class="pub-journal">Adv. Space. Research, 42(5):903-911, 2008.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">38.</span>
+                <span class="pub-authors">Amblard, P.-O., Moussaoui, S., Dudok De Wit, T., Aboudarham, J., Kretzschmar, M., and Lilensten, J.</span>
+                <div class="pub-title">The EUV Sun as the superposition of elementary Sun.</div>
+                <div class="pub-journal">Astronomy and Astrophysics, 493:L13-L16, 2008.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">39.</span>
+                <span class="pub-authors">Lilensten, J., Moen, J., Barthélémy, M., Thissen, R., Simon, C., Lorentzen, D., Dutuit, O., Amblard, P., and Sigernes, F.</span>
+                <div class="pub-title">Polarization in aurorae: A new dimension for space environments studies.</div>
+                <div class="pub-journal">Geophysical Research Letters, 35:L08804, 2008.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">40.</span>
+                <span class="pub-authors">Lilensten, J., Dudok de Wit, T. D., Amblard, P. O., Kretzschmar, M., Aboudarham, L., and Auchere, F.</span>
+                <div class="pub-title">Recommendation for a set of solar euv lines to be monitored for aeronomy applications.</div>
+                <div class="pub-journal">Annales Geophysicae, 25:1299-1310, 2007.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">41.</span>
+                <span class="pub-authors">Zozor, S., Amblard, P., and Duchêne, C.</span>
+                <div class="pub-title">On pooling networks and fluctuation in suboptimal detection framework.</div>
+                <div class="pub-journal">Fluctuation and Noise Letters, 7:39-60, 2007.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">42.</span>
+                <span class="pub-authors">Amblard, P. O. and Vignat, C.</span>
+                <div class="pub-title">A note on bounded entropies.</div>
+                <div class="pub-journal">Physica A: statistical physics and application, 365:50-56, 2006.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">43.</span>
+                <span class="pub-authors">Zozor, S., Brossier, J. M., and Amblard, P. O.</span>
+                <div class="pub-title">A parametric approach to suboptimal signal detection in a-stable noise.</div>
+                <div class="pub-journal">IEEE Trans. on Signal Processing, 54(12):4497-4509, 2006.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">44.</span>
+                <span class="pub-authors">Zozor, S. and Amblard, P. O.</span>
+                <div class="pub-title">Noise-aided processing: revisiting dithering in a Sigma-Delta quantizer.</div>
+                <div class="pub-journal">IEEE Trans. on Signal Processing, 53(8):3202-3210, 2005.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">45.</span>
+                <span class="pub-authors">Borgnat, P., Amblard, P. O., and Flandrin, P.</span>
+                <div class="pub-title">Scale invariances and lamperti transformations for stochastic processes.</div>
+                <div class="pub-journal">Journal of Physics, A math. gen., 38:2081-2101, 2005.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">46.</span>
+                <span class="pub-authors">Dudok De Wit, T., Lilensten, J., Aboudarham, J., Amblard, P. O., and Kretzschmar, M.</span>
+                <div class="pub-title">Retrieving the solar euv spectrum from a reduced set of spectral lines.</div>
+                <div class="pub-journal">Annales Geophysicae, 23:3055-3069, 2005.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">47.</span>
+                <span class="pub-authors">Senecal, S., Amblard, P. O., and Cavazzanna, L.</span>
+                <div class="pub-title">Particle filtering equalization method for a satellite communication channel.</div>
+                <div class="pub-journal">Journal of Applied Signal Processing, 15:2315-2327, 2004.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">48.</span>
+                <span class="pub-authors">Zozor, S. and Amblard, P. O.</span>
+                <div class="pub-title">Stochastic resonance in locally optimal detectors.</div>
+                <div class="pub-journal">IEEE Trans. on Signal Processing, 51(12):3177-3181, 2003.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">49.</span>
+                <span class="pub-authors">Amblard, P. O., Brossier, J., and Moisan, E.</span>
+                <div class="pub-title">Phase tracking what do we gain from optimality? particle filtering versus phase-locked loops.</div>
+                <div class="pub-journal">Signal Processing, 83:151-167, 2003.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">50.</span>
+                <span class="pub-authors">Pedersen, H., Mars, J., and Amblard, P. O.</span>
+                <div class="pub-title">Improving surface wave group velocity measurements by energy reassignment.</div>
+                <div class="pub-journal">Geophysics, 68(2):677-684, 2003.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">51.</span>
+                <span class="pub-authors">Zozor, S. and Amblard, P. O.</span>
+                <div class="pub-title">On the use of stochastic resonance in detection.</div>
+                <div class="pub-journal">Signal Processing, 82:353-367, 2002.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">52.</span>
+                <span class="pub-authors">Borgnat, P., Flandrin, P., and Amblard, P. O.</span>
+                <div class="pub-title">Stochastic discrete scale invariance.</div>
+                <div class="pub-journal">IEEE Signal Processing Letters, 9:181-184, 2002.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">53.</span>
+                <span class="pub-authors">Senecal, S. and Amblard, P. O.</span>
+                <div class="pub-title">Meme blind equalization of a satellite communication system.</div>
+                <div class="pub-journal">Journal of Applied Signal Processing, pages 46-57, 2002.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">54.</span>
+                <span class="pub-authors">Ravier, P. and Amblard, P. O.</span>
+                <div class="pub-title">Wavelet packets for detecting transient signals.</div>
+                <div class="pub-journal">Signal Processing, 81:1909-1926, 2001.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">55.</span>
+                <span class="pub-authors">Lilensten, J. and Amblard, P. O.</span>
+                <div class="pub-title">On the fast movement of the thermosphere: An interpretation.</div>
+                <div class="pub-journal">Annales Geophysicae, 18:1651-1656, 2001.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">56.</span>
+                <span class="pub-authors">Zozor, S. and Amblard, P. O.</span>
+                <div class="pub-title">Stochastic resonance in discrete time nonlinear ar(1) models: erratum.</div>
+                <div class="pub-journal">IEEE Trans. on Signal Processing, 51(5):1107-1109, 2001.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">57.</span>
+                <span class="pub-authors">Amblard, P. O. and Zozor, S.</span>
+                <div class="pub-title">Cyclostationarity and stochastic resonance in threshold devices.</div>
+                <div class="pub-journal">Phys. Rev. E, 5(59):5009-5020, 1999.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">58.</span>
+                <span class="pub-authors">Amblard, P. O. and Brossier, J.</span>
+                <div class="pub-title">On the cascade in fully developed turbulence. the propagator approach versus the markovian description.</div>
+                <div class="pub-journal">European Physical Journal B, 12:579-582, 1999.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">59.</span>
+                <span class="pub-authors">Carmillet, V., Amblard, P. O., and Jourdain, G.</span>
+                <div class="pub-title">Detection of phase- or frequency-modulated signals in reverberation noise.</div>
+                <div class="pub-journal">Journal of the Acoustical Society of America, 6(105):3375-3389, 1999.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">60.</span>
+                <span class="pub-authors">Zozor, S. and Amblard, P. O.</span>
+                <div class="pub-title">Stochastic resonance in discrete time nonlinear ar(1) models.</div>
+                <div class="pub-journal">IEEE Trans. on Sig. Proc., 49(1):109-120, 1999.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">61.</span>
+                <span class="pub-authors">Ravier, P. and Amblard, P. O.</span>
+                <div class="pub-title">Combining an adapted wavelet analysis with 4th order statistics for transient detection.</div>
+                <div class="pub-journal">Signal Processing, 70:115-128, 1998.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">62.</span>
+                <span class="pub-authors">Zozor, S., Moisan, E., and Amblard, P. O.</span>
+                <div class="pub-title">Revisiting the estimation of the mean using order statistics.</div>
+                <div class="pub-journal">Signal Processing, 68:155-173, 1998.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">63.</span>
+                <span class="pub-authors">Amblard, P. O., Gaeta, M., and Lacoume, J. L.</span>
+                <div class="pub-title">Complex random variables and signals. part 2: signals.</div>
+                <div class="pub-journal">Signal Processing, 42(11):15-25, 1996.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">64.</span>
+                <span class="pub-authors">Amblard, P. O., Gaeta, M., and Lacoume, J. L.</span>
+                <div class="pub-title">Complex random variables and signals. part 1: variables.</div>
+                <div class="pub-journal">Signal Processing, 42(11):1-13, 1996.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">65.</span>
+                <span class="pub-authors">Lilensten, J. and Amblard, P. O.</span>
+                <div class="pub-title">Time-frequency tools of signal processing for eiscat data analysis.</div>
+                <div class="pub-journal">Ann. Geophysicae, 14(12):1513-1525, 1996.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">66.</span>
+                <span class="pub-authors">Amblard, P. O. and Brossier, J. M.</span>
+                <div class="pub-title">Adaptive estimation of the fourth-order cumulant of a white stochastic process.</div>
+                <div class="pub-journal">Signal Processing, 42(1):37-43, 1995.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">67.</span>
+                <span class="pub-authors">Amblard, P. O. and Lacoume, J. L.</span>
+                <div class="pub-title">A deductive construction of third-order time-frequency distributions.</div>
+                <div class="pub-journal">Signal Processing, 36(3):277-286, 1994.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">68.</span>
+                <span class="pub-authors">Amblard, P. O. and Moisan, E.</span>
+                <div class="pub-title">Frequency domain volterra filters in terms of distributions.</div>
+                <div class="pub-journal">IEEE Sig. Proc. Letters, 1(11):169-172, 1994.</div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Conférences -->
+    <section id="conferences" class="category-section">
+        <h2 class="section-title">Communications avec actes dans des conférences internationales / nationales <span class="count">133</span></h2>
+        <ul class="pub-list">
+            <li class="pub-item">
+                <span class="pub-num">1.</span>
+                <span class="pub-authors">P. O. Amblard.</span>
+                <div class="pub-title">Petite histoire de &sigma;<sub>&infin;</sub><sup>2</sup> = exp &int; log &gamma;(&lambda;)d&lambda; et de la prédiction à un pas.</div>
+                <div class="pub-journal">In GRETSI, Strasbourg, 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">2.</span>
+                <span class="pub-authors">P.-O. Amblard and O. J. J. Michel.</span>
+                <div class="pub-title">Estimation en ligne des paramètres de phase et de polarisation pour les ondes gravitationnelles.</div>
+                <div class="pub-journal">In GRETSI 2025 - XXXème Colloque Francophone de Traitement du Signal et des Images, Strasbourg, France, Aug. 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">3.</span>
+                <span class="pub-authors">T. Mauger, P.-O. Amblard, and O. J. J. Michel.</span>
+                <div class="pub-title">Approche dictionnaire pour l'identification et la quantification des ions atomiques d'un spectre de masse issu d'une sonde atomique.</div>
+                <div class="pub-journal">In GRETSI 2025 - XXXème Colloque Francophone de Traitement du Signal et des Images, Strasbourg, France, Aug. 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">4.</span>
+                <span class="pub-authors">P. Flores, J. Flamant, P.-O. Amblard, and N. Le Bihan.</span>
+                <div class="pub-title">Décomposition de signaux bivariés en somme d'ellipses amorties.</div>
+                <div class="pub-journal">In GRETSI 2025 - XXXème Colloque Francophone de Traitement du Signal et des Images, Strasbourg, France, Aug. 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">5.</span>
+                <span class="pub-authors">P. Flores, J. Flamant, P.-O. Amblard, and N. Le Bihan.</span>
+                <div class="pub-title">Damped ellipse decomposition for bivariate signals.</div>
+                <div class="pub-journal">In EURASIP, editor, SSP 2025 - IEEE Statistical Signal Processing Workshop, Edinburgh, United Kingdom, June 2025.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">6.</span>
+                <span class="pub-authors">C. Cros, P.-O. Amblard, C. Prieur, and J.-F. Da Rocha.</span>
+                <div class="pub-title">Split Covariance Intersection with Correlated Components for Distributed Estimation.</div>
+                <div class="pub-journal">In Fusion 2024 - 27th International Conference on Information Fusion, Venise, Italy, July 2024.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">7.</span>
+                <span class="pub-authors">N. Le Bihan, J. Flamant, and P.-O. Amblard.</span>
+                <div class="pub-title">The geometric phase of bivariate signals.</div>
+                <div class="pub-journal">In EUSIPCO 2024 - 32nd European Signal Processing Conference, Lyon, France, Aug. 2024.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">8.</span>
+                <span class="pub-authors">H. Jaquard, P.-O. Amblard, S. Barthelme, and N. Tremblay.</span>
+                <div class="pub-title">Estimators for Connection-Laplacian-Based Linear Algebra.</div>
+                <div class="pub-journal">In GSP 2024 - 7th Graph Signal Processing Workshop, Delft, Netherlands, June 2024.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">9.</span>
+                <span class="pub-authors">C. Cros, P.-O. Amblard, C. Prieur, and J.-F. Da Rocha.</span>
+                <div class="pub-title">Intégration de mesures de distance entre agents de corrélation inconnue : cas unidimensionnel.</div>
+                <div class="pub-journal">In GRETSI 2023 - XXIXème Colloque Francophone de Traitement du Signal et des Images, Grenoble, France, Aug. 2023.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">10.</span>
+                <span class="pub-authors">J. Flamant, P.-O. Amblard, and N. Le Bihan.</span>
+                <div class="pub-title">Modèles physiques à deux états pour les signaux bivariés : un système d'oscillateurs harmoniques couplés.</div>
+                <div class="pub-journal">In GRETSI 2023 - XXIXème Colloque Francophone de Traitement du Signal et des Images, Grenoble, France, Aug. 2023.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">...</span>
+                <span class="pub-authors">Découvrir la suite dans le fichier complet</span>
+                <div class="pub-title">Indexation des publications 11 à 133 disponible.</div>
+                <div class="pub-journal">Actes GRETSI, ICASSP, EUSIPCO, SPIE, etc.</div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Conférences Invitées -->
+    <section id="invited" class="category-section">
+        <h2 class="section-title">Conférences Invitées <span class="count">14</span></h2>
+        <ul class="pub-list">
+            <li class="pub-item">
+                <span class="pub-num">1.</span>
+                <span class="pub-authors">P.O. Amblard (et équipe CICS du GIPSA).</span>
+                <div class="pub-title">Quelques aspects de traitement de l'information compressée pour les capteurs en réseaux.</div>
+                <div class="pub-journal">Journées Objets Communicants: Algorithmes, Architectures et Applications, INS2I, CNRS, Paris, Juillet 2017.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">2.</span>
+                <span class="pub-authors">P.-O. Amblard, C. Jutten, S. Chlaily, and O. Michel.</span>
+                <div class="pub-title">Effects of model mismatches in multimodal estimations.</div>
+                <div class="pub-journal">In SBrT 2017, San Pedro, Brazil, September 2017.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">3.</span>
+                <span class="pub-authors">P.O. Amblard.</span>
+                <div class="pub-title">On the links between directed information theory and Granger causality.</div>
+                <div class="pub-journal">Workshop Information Processing and Cognition, Sydney, Australia, Feb 2013.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">4.</span>
+                <span class="pub-authors">P.O. Amblard.</span>
+                <div class="pub-title">Granger causality and directed information theory.</div>
+                <div class="pub-journal">Workshop on directed information theory, Munich, May 2012.</div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Livres et Chapitres -->
+    <section id="books" class="category-section">
+        <h2 class="section-title">Livres & Chapitres de Livres <span class="count">5</span></h2>
+        <ul class="pub-list">
+            <li class="pub-item">
+                <span class="pub-num">Livre</span>
+                <span class="pub-authors">J.L. Lacoume, P.O. Amblard, et P. Comon.</span>
+                <div class="pub-title">Statistiques d'ordre supérieur pour le traitement du signal.</div>
+                <div class="pub-journal">Masson, 1997.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">Chap. 1</span>
+                <span class="pub-authors">P.O. Amblard et P. Ravier.</span>
+                <div class="pub-title">Détection de transitoires par ondelettes adaptées (Ouvrage : Décision dans le plan temps-fréquence).</div>
+                <div class="pub-journal">C. Doncarli, N. Martin eds., Hermès, 2004.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">Chap. 2</span>
+                <span class="pub-authors">P.O. Amblard.</span>
+                <div class="pub-title">Représentations temps-fréquence d'ordres supérieurs (Ouvrage : Temps-fréquence - Concept et outils).</div>
+                <div class="pub-journal">F. Hlawatsch, C. Auger eds., Hermès, 2005.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">Chap. 3</span>
+                <span class="pub-authors">P.O. Amblard.</span>
+                <div class="pub-title">Higher-order time-frequency representations (Ouvrage : Time-frequency analysis).</div>
+                <div class="pub-journal">F. Hlawatsch, C. Auger eds., ISTE, 2006.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">Chap. 4</span>
+                <span class="pub-authors">P. Flandrin, P. Borgnat, and P.O. Amblard.</span>
+                <div class="pub-title">From stationarity to self-similarity and back: Variations on the Lamperti transform.</div>
+                <div class="pub-journal">Long-Range Dependent Stochastic Processes: Theory and Applications, Springer, 2003.</div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Thèses & Autres -->
+    <section id="other" class="category-section">
+        <h2 class="section-title">Thèses & Écoles d'Été <span class="count">3</span></h2>
+        <ul class="pub-list">
+            <li class="pub-item">
+                <span class="pub-num">Thèse</span>
+                <span class="pub-authors">P.-O. Amblard.</span>
+                <div class="pub-title">Statistiques d'ordre supérieur pour les signaux non gaussiens, non linéaires, non stationnaires.</div>
+                <div class="pub-journal">Thèse de Doctorat de l'INPG, 1994.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">HDR</span>
+                <span class="pub-authors">P.-O. Amblard.</span>
+                <div class="pub-title">Non, non et non, ou quelques études sur et autour des non-propriétés en traitement du signal.</div>
+                <div class="pub-journal">Habilitation à Diriger des Recherches, INPG, 2001.</div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-num">École d'été</span>
+                <span class="pub-authors">J.M. Brossier et P.-O. Amblard.</span>
+                <div class="pub-title">Introduction aux problèmes de synchronisation.</div>
+                <div class="pub-journal">École d'été ECOTEL, Nice, octobre 2000.</div>
+            </li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Pierre-Olivier Amblard — GIPSA-lab</p>
+    </footer>
+</div>
+
+<script>
+function filterPublications() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let items = document.querySelectorAll('.pub-item');
+    items.forEach(item => {
+        let text = item.innerText.toLowerCase();
+        if (text.includes(input)) {
+            item.style.display = "";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+function filterCategory(cat, event) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    let sections = document.querySelectorAll('.category-section');
+    sections.forEach(sec => {
+        if (cat === 'all' || sec.id === cat) {
+            sec.style.display = "";
+        } else {
+            sec.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
