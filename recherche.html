@@ -1,3 +1,4 @@
+<!-- Début de la section Travaux & Recherche - Pierre-Olivier Amblard -->
 <section class="poa-works-section">
   <style>
     .poa-works-section {
@@ -46,12 +47,6 @@
       padding: 24px;
       margin-bottom: 20px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .poa-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     .poa-card-title {
@@ -59,7 +54,7 @@
       font-weight: 600;
       color: #1f2937;
       margin-top: 0;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -70,39 +65,55 @@
       flex-shrink: 0;
     }
 
-    .poa-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
+    /* Grille des thèmes de recherche cliquables */
+    .poa-themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
     }
 
-    .poa-list li {
-      position: relative;
-      padding-left: 24px;
-      margin-bottom: 10px;
-      color: #374151;
-    }
-
-    .poa-list li::before {
-      content: "•";
-      color: #4f46e5;
-      font-weight: bold;
-      font-size: 1.2rem;
-      position: absolute;
-      left: 8px;
-      top: -2px;
-    }
-
-    .poa-link {
-      color: #2563eb;
+    .poa-theme-item {
+      display: block;
+      padding: 14px 16px;
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       text-decoration: none;
-      font-weight: 500;
-      transition: color 0.15s ease;
+      color: #1f2937;
+      transition: all 0.2s ease;
+      position: relative;
     }
 
-    .poa-link:hover {
-      color: #1d4ed8;
-      text-decoration: underline;
+    .poa-theme-item:hover {
+      background-color: #eef2ff;
+      border-color: #c7d2fe;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .poa-theme-name {
+      font-weight: 600;
+      color: #3730a3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .poa-theme-name::after {
+      content: "→";
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .poa-theme-item:hover .poa-theme-name::after {
+      transform: translateX(4px);
+    }
+
+    .poa-theme-desc {
+      font-size: 0.875rem;
+      color: #4b5563;
+      margin: 0;
     }
 
     .poa-footer-links {
@@ -144,38 +155,70 @@
     }
   </style>
 
+  <!-- En-tête de la section -->
   <header class="poa-header">
     <h2 class="poa-title">Travaux de Recherche & Thématiques</h2>
     <p class="poa-subtitle">Pierre-Olivier Amblard — Directeur de Recherche CNRS / GIPSA-lab</p>
     <span class="poa-tag">Traitement du Signal & Statistique</span>
   </header>
 
+  <!-- Carte : Thèmes de recherche cliquables -->
   <article class="poa-card">
     <h3 class="poa-card-title">
       <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-      Aperçu des axes de recherche
+      Thèmes de Recherche
     </h3>
-    <ul class="poa-list">
-      <li><strong>Causalité de Granger & Théorie de l'information dirigée :</strong> Applications en neurosciences et analyse de réseaux dynamiques.</li>
-      <li><strong>Traitement du signal :</strong> Signaux compressés, quantifiés et statistiques d'ordre supérieur.</li>
-      <li><strong>Processus ponctuels :</strong> Étude et manipulation des <em>Determinantal Point Processes</em> (DPP).</li>
-      <li><strong>Méthodes statistiques sur groupes/variétés :</strong> Analyse de données complexes et traitement de signaux polarisés.</li>
-    </ul>
+    <p style="margin-top: 0; margin-bottom: 16px; font-size: 0.95rem; color: #6b7280;">
+      Cliquez sur une thématique pour consulter sa description détaillée :
+    </p>
+
+    <div class="poa-themes-grid">
+      <!-- Thème 1 -->
+      <a href="theme-causalite.html" class="poa-theme-item">
+        <div class="poa-theme-name">Causalité de Granger</div>
+        <p class="poa-theme-desc">Théorie de l'information dirigée, applications aux neurosciences et réseaux dynamiques.</p>
+      </a>
+
+      <!-- Thème 2 -->
+      <a href="theme-traitement-signal.html" class="poa-theme-item">
+        <div class="poa-theme-name">Traitement du Signal</div>
+        <p class="poa-theme-desc">Signaux compressés, quantifiés et statistiques d'ordre supérieur.</p>
+      </a>
+
+      <!-- Thème 3 -->
+      <a href="theme-processus-ponctuels.html" class="poa-theme-item">
+        <div class="poa-theme-name">Processus Ponctuels</div>
+        <p class="poa-theme-desc">Étude et manipulation des <em>Determinantal Point Processes</em> (DPP).</p>
+      </a>
+
+      <!-- Thème 4 -->
+      <a href="theme-statistiques-groupes.html" class="poa-theme-item">
+        <div class="poa-theme-name">Statistiques sur Variétés</div>
+        <p class="poa-theme-desc">Méthodes statistiques sur groupes, données complexes et signaux polarisés.</p>
+      </a>
+    </div>
   </article>
 
+  <!-- Carte : Ouvrages & Documents -->
   <article class="poa-card">
     <h3 class="poa-card-title">
       <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-      Ouvrages et Documents
+      Ouvrages & Bibliographie
     </h3>
-    <p>
+    <p style="margin: 0;">
       Accès en ligne au livre de référence : 
       <strong>« Statistiques d'Ordre Supérieur pour le Traitement du Signal »</strong>.
     </p>
   </article>
 
+  <!-- Boutons d'action / Liens -->
   <div class="poa-footer-links">
     <a href="https://www.gipsa-lab.grenoble-inp.fr/~pierre-olivier.amblard/" class="poa-btn" target="_blank" rel="noopener">
-      Page Personnelle (BidouPerso)
+      Ancienne page personnelle
     </a>
-    <a href="
+    <a href="https://www.gipsa-lab.grenoble-inp.fr/?team=pierre-olivier-amblard" class="poa-btn poa-btn-secondary" target="_blank" rel="noopener">
+      Page officielle GIPSA-lab
+    </a>
+  </div>
+</section>
+<!-- Fin de la section Travaux -->
