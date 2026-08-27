@@ -1,0 +1,181 @@
+<section class="poa-works-section">
+  <style>
+    .poa-works-section {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .poa-header {
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    .poa-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #111827;
+      margin: 0 0 8px 0;
+    }
+
+    .poa-subtitle {
+      font-size: 1.1rem;
+      color: #4b5563;
+      margin: 0;
+    }
+
+    .poa-tag {
+      display: inline-block;
+      background-color: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      margin-top: 8px;
+    }
+
+    .poa-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .poa-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .poa-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-top: 0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .poa-card-title svg {
+      color: #4f46e5;
+      flex-shrink: 0;
+    }
+
+    .poa-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .poa-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      color: #374151;
+    }
+
+    .poa-list li::before {
+      content: "•";
+      color: #4f46e5;
+      font-weight: bold;
+      font-size: 1.2rem;
+      position: absolute;
+      left: 8px;
+      top: -2px;
+    }
+
+    .poa-link {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .poa-link:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+
+    .poa-footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .poa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background-color: #4f46e5;
+      color: #ffffff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .poa-btn:hover {
+      background-color: #4338ca;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .poa-btn-secondary {
+      background-color: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+
+    .poa-btn-secondary:hover {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+  </style>
+
+  <header class="poa-header">
+    <h2 class="poa-title">Travaux de Recherche & Thématiques</h2>
+    <p class="poa-subtitle">Pierre-Olivier Amblard — Directeur de Recherche CNRS / GIPSA-lab</p>
+    <span class="poa-tag">Traitement du Signal & Statistique</span>
+  </header>
+
+  <article class="poa-card">
+    <h3 class="poa-card-title">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+      Aperçu des axes de recherche
+    </h3>
+    <ul class="poa-list">
+      <li><strong>Causalité de Granger & Théorie de l'information dirigée :</strong> Applications en neurosciences et analyse de réseaux dynamiques.</li>
+      <li><strong>Traitement du signal :</strong> Signaux compressés, quantifiés et statistiques d'ordre supérieur.</li>
+      <li><strong>Processus ponctuels :</strong> Étude et manipulation des <em>Determinantal Point Processes</em> (DPP).</li>
+      <li><strong>Méthodes statistiques sur groupes/variétés :</strong> Analyse de données complexes et traitement de signaux polarisés.</li>
+    </ul>
+  </article>
+
+  <article class="poa-card">
+    <h3 class="poa-card-title">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      Ouvrages et Documents
+    </h3>
+    <p>
+      Accès en ligne au livre de référence : 
+      <strong>« Statistiques d'Ordre Supérieur pour le Traitement du Signal »</strong>.
+    </p>
+  </article>
+
+  <div class="poa-footer-links">
+    <a href="https://www.gipsa-lab.grenoble-inp.fr/~pierre-olivier.amblard/" class="poa-btn" target="_blank" rel="noopener">
+      Page Personnelle (BidouPerso)
+    </a>
+    <a href="
